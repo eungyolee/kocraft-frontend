@@ -1,5 +1,6 @@
-// TODO : API 요청
+// TODO : API 요청, setState is not a function 에러 해결
 export function handleItemDrop(e, { setState }) {
+  e.preventDefault();
   const data = e.dataTransfer.getData("text");
   const item = document.getElementById(data);
   let item2;
@@ -8,6 +9,8 @@ export function handleItemDrop(e, { setState }) {
   } else {
     item2 = document.getElementById(e.target.id);
   }
+  const emoji1 = item.children[0].textContent;
+  const emoji2 = item2.children[0].textContent;
   const name1 = item.children[1].textContent;
   const name2 = item2.children[1].textContent;
   fetch("http://100.64.0.36:8001/v1/merge", { 
@@ -15,11 +18,14 @@ export function handleItemDrop(e, { setState }) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: { name1, name2 },
+    body: { 
+      "first_word": emoji1 + name1,
+      "second_word": emoji2 + name2
+    },
   }).then((response) => response.json()).then((data) => {
     const emoji = data.emoji;
     const word = data.word;
-    const id = localStorage.getItem("items").length + 1;
+    const id = JSON.parse(localStorage.getItem("items")).length;
     const elementId = Math.random().toString(36).substring(7);
     const newItem = { id, emoji, word };
     const items = JSON.parse(localStorage.getItem("items"));
@@ -46,6 +52,6 @@ export function handleItemDrop(e, { setState }) {
     newItemElement.innerHTML = `<span>${emoji}</span><span>${word}</span>`;
     document.querySelector(".items").appendChild(`<Item index={${id}} emoji={${emoji}} name={${word}} />`);
   }).catch((error) => {
-    alert("오류가 발생했습니다 : ", error);
+    console.log("오류가 발생했습니다 : ", error);
   });
 }
