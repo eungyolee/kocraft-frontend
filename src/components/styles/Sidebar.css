@@ -1,0 +1,32 @@
+.bottom {
+  display: flex;
+  min-width: 75vw;
+  position: absolute;
+  font-size: 2rem;
+  padding: 0 20px;
+  top: 100%;
+  transform: translateY(-100%);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom > span {
+  cursor: pointer;
+  
+}
+
+.bottom > .right {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.right > li {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.right > li:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}

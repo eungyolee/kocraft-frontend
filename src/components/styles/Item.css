@@ -1,0 +1,5 @@
+.items > * {
+  position: relative;
+  cursor: drag;
+  z-index: 999;
+}
