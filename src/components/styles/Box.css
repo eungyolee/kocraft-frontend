@@ -1,4 +1,8 @@
 .box { 
-  border-right: 1px solid #ccc;
   height: 100vh;
+}
+
+.dark-mode {
+  background-color: #2B2B2B;
+  color: #f8f9fa;
 }

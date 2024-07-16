@@ -1,3 +1,7 @@
+.sidebar {
+  width: 25%;
+}
+
 .bottom {
   display: flex;
   min-width: 75vw;
@@ -12,7 +16,6 @@
 
 .bottom > span {
   cursor: pointer;
-  
 }
 
 .bottom > .right {
@@ -29,4 +32,14 @@
 .right > li:hover {
   transform: scale(1.1);
   transition: 0.3s;
+}
+
+.dark-mode .sidebar {
+  background-color: #2B2B2B;
+  color: black;
+}
+
+.dark-mode .bottom {
+  background-color: #2B2B2B;
+  color: #f8f9fa;
 }

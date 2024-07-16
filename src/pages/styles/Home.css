@@ -2,3 +2,13 @@
   margin: 0;
   padding: 0;
 }
+
+.App {
+  display: flex;
+  flex-direction: row;
+}
+
+.dark-mode {
+  background-color: #2B2B2B; /* 다크 모드 배경색 */ 
+  color: black;
+}

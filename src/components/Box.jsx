@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/Box.css";
 import { handleItemDrop } from "../functions/ItemDrop";
 
-export default function Box({ setState }) {
+export default function Box({ state, postObj, darkMode }) {
   function handleDragOver(e) {
     e.preventDefault();
   }
@@ -37,7 +37,21 @@ export default function Box({ setState }) {
         clone.style.opacity = 1;
       });
 
-      clone.addEventListener("drop", (e) => handleItemDrop(e, { setState }));
+      // clone.addEventListener("dragenter", (e) => {
+      //   if (e.target.tagName === "SPAN") {
+      //     e.target.parentElement.style.backgroundColor = "rgba(80, 188, 223, 0.5)";
+      //   } else {
+      //     e.target.style.backgroundColor = "rgba(80, 188, 223, 0.5)";
+      //   }
+      // });
+
+      // clone.addEventListener("dragleave", (e) => {
+      //   if (e.target.tagName !== "SPAN") {
+      //     e.target.parentElement.style.backgroundColor = "";
+      //   }
+      // });
+
+      clone.addEventListener("drop", (e) => handleItemDrop(e, {state, postObj}));
 
       clone.addEventListener("dragover", (e) => {
         e.preventDefault();
@@ -45,6 +59,6 @@ export default function Box({ setState }) {
     }
   }
   return (
-    <canvas className="box w-3/4 bg-white" onDrop={handleDrop} onDragOver={handleDragOver}></canvas>
+    <canvas className={`box w-3/4 ${darkMode ? "dark-mode" : ""}`} onDrop={handleDrop} onDragOver={handleDragOver}></canvas>
   );
 }

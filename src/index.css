@@ -26,3 +26,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+hr {
+  border: 1px solid #ccc;
+  height: 100vh;
+}

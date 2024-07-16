@@ -6,11 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faBrush, faVolumeXmark, faSun, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { clear } from "../functions/Clear";
 
-export default function Sidebar() {
+export default function Sidebar({ state, postObj, darkMode, toggleDarkMode }) {
   const [items, setItems] = useState([]);
-  const [darkMode, setDarkMode] = useState(false);
   const [mute, setMute] = useState(false);
-  const postObj = {setState : setItems};
   useEffect(() => {
     if (localStorage.getItem("items") === null) {
       localStorage.setItem("items", JSON.stringify([
@@ -23,34 +21,23 @@ export default function Sidebar() {
     setItems(JSON.parse(localStorage.getItem("items")));
   }, []);
 
-  function addItem(id, emoji, name) {
-    const newItems = [...items, { id, emoji, name }];
-    setItems(newItems);
-    localStorage.setItem("items", JSON.stringify(newItems));
-  }
-
-  function changeColorMode() {
-    setDarkMode(!darkMode);
-  }
-
   function changeMute() {
     setMute(!mute);
   }
 
   return (
     <>
-      <div className="sidebar w-1/4 shadow px-4 py-3 border-gray-200 border rounded-lg overflow-y-scroll bg-slate-50">
+      <div className="sidebar w-1/4 shadow px-4 py-3 overflow-y-scroll">
         <div className="items">
           {items && items.map((item, index) => (
             <Item key={index} emoji={item.emoji} name={item.name} />
           ))}
-          <button onClick={() => {addItem(items.length, "🍋", "lemon")}}>레몬</button>
         </div>
       </div>
       <div className="bottom">
       <span onClick={() => reset(postObj)}>초기화</span>
       <ul className="right">
-        <li onClick={() => changeColorMode()}>
+        <li onClick={toggleDarkMode}>
           {darkMode ? (
             <FontAwesomeIcon icon={faMoon} />
           ) : (
