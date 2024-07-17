@@ -23,9 +23,7 @@ export default function Home() {
         { id: 4, emoji: "👪", name: "사람" },
         { id: 5, emoji: "🥵", name: "지구온난화"},
         { id: 6, emoji: "🗑️", name: "쓰레기"},
-        { id: 7, emoji: "🍀", name: "친환경"},
-        { id: 8, emoji: "☕️", name: "자바" },
-        { id: 9, emoji: "🤴", name: "절대신" }
+        { id: 7, emoji: "🍀", name: "친환경"}
       ]));
     }
     setItems(JSON.parse(localStorage.getItem("items")));
