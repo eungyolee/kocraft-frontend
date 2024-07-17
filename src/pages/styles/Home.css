@@ -12,3 +12,14 @@
   background-color: #2B2B2B; /* 다크 모드 배경색 */ 
   color: black;
 }
+
+/* #root > div > div.item.space-x-1\.5.m-1.px-4.py-2.border-gray-200.shadow.hover\:bg-gray-100.cursor-pointer.transition.inline-block.font-medium.border.rounded-lg */
+
+.dark-mode > .item {
+  background-color: #2B2B2B;
+  color: white;
+}
+
+.dark-mode > .item:hover {
+  background-color: #3B3B3B;
+}

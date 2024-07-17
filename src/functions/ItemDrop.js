@@ -1,8 +1,6 @@
 import axios from "axios";
-import { addItem } from "./AddItem";
 
-// TODO : API 요청, setState is not a function 에러 해결
-export function handleItemDrop(e, { items, setItems }) {
+export function handleItemDrop(e) {
   e.preventDefault();
   const data = e.dataTransfer.getData("text");
   const duplicate = e.dataTransfer.getData("clone");
@@ -15,11 +13,20 @@ export function handleItemDrop(e, { items, setItems }) {
     item2 = document.getElementById(e.target.id);
   }
 
+  const emoji1 = item.children[0].textContent;
+  const emoji2 = item2.children[0].textContent;
+  const name1 = item.children[1].textContent;
+  const name2 = item2.children[1].textContent;
+
+  item2.remove();
+
   if (duplicate === "false") {
     item.style.position = "absolute";
     item.style.left = e.clientX / window.innerWidth * 100 + "%";
     item.style.top = e.clientY / window.innerHeight * 100 + "%";
     item.style.zIndex = 1000;
+
+    item.remove();
   } else {
     clone = item.cloneNode(true);
 
@@ -29,19 +36,26 @@ export function handleItemDrop(e, { items, setItems }) {
     clone.style.zIndex = 1000;
     clone.style.opacity = 1;
     clone.id = Math.random().toString(36).substring(7);
-    document.body.appendChild(clone);
+    document.querySelector(".App").appendChild(clone);
+
+    clone.style.opacity = 0;
   }
-  const emoji1 = item.children[0].textContent;
-  const emoji2 = item2.children[0].textContent;
-  const name1 = item.children[1].textContent;
-  const name2 = item2.children[1].textContent;
+  const tempItem = document.createElement("div");
+  tempItem.className = "item space-x-1.5 m-1 px-4 py-2 border-gray-200 shadow cursor-pointer transition inline-block font-medium border rounded-lg";
+  tempItem.style.position = "absolute";
+  tempItem.style.left = e.clientX / window.innerWidth * 100 + "%";
+  tempItem.style.top = e.clientY / window.innerHeight * 100 + "%";
+  tempItem.style.zIndex = 1000;
+  tempItem.draggable = false;
+  tempItem.innerText = "생성 중...";
+  document.querySelector(".App").appendChild(tempItem);
   console.log("item1 :", emoji1 + ' ' + name1);
   console.log("item2 :", emoji2 + ' ' + name2);
   const postData = {
     first_word: emoji1 + ' ' + name1,
     second_word: emoji2 + ' ' + name2,
   }
-  axios.post("http://100.64.0.36:8001/v1/merge", postData, {
+  axios.post("https://craft.runa.pw/v1/merge", postData, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -60,11 +74,12 @@ export function handleItemDrop(e, { items, setItems }) {
     } else {
       clone.remove();
     }
+    tempItem.remove();
     // <Item /> 생성
     const newItemElement = document.createElement("div");
     newItemElement.id = elementId;
     newItemElement.draggable = true;
-    newItemElement.className = "item space-x-1.5 m-1 px-3 py-1 border-gray-200 bg-white shadow hover:bg-gray-100 cursor-pointer transition inline-block font-medium border rounded-lg";
+    newItemElement.className = "item space-x-1.5 m-1 px-4 py-2 border-gray-200 shadow cursor-pointer transition inline-block font-medium border rounded-lg";
     newItemElement.style.position = "absolute";
     newItemElement.style.left = e.clientX / window.innerWidth * 100 + "%";
     newItemElement.style.top = e.clientY / window.innerHeight * 100 + "%";
@@ -73,18 +88,15 @@ export function handleItemDrop(e, { items, setItems }) {
       e.dataTransfer.setData("clone", false);
     });
     newItemElement.addEventListener("drop", (e) => {
-      handleItemDrop(e, { items, setItems });
+      handleItemDrop(e);
     });
     newItemElement.addEventListener("dragover", (e) => {
       e.preventDefault();
     });
     newItemElement.innerHTML = `<span>${emoji}</span><span>${name}</span>`;
-    document.body.appendChild(newItemElement);
-    // document.querySelector(".items").appendChild(`<Item index={${id}} emoji={${emoji}} name={${name}} />`);
-    // 만약 생성된 단어가 만약 이미 있다면 추가하지 않음
+    document.querySelector(".App").appendChild(newItemElement);
     Array.from(JSON.parse(localStorage.getItem("items"))).forEach((item) => {
-      console.log(item.emoji, item.name);
-      if (item.emoji === emoji && item.name === name) {
+      if (item.name === name) {
         flag = false;
       }
     });
@@ -92,9 +104,23 @@ export function handleItemDrop(e, { items, setItems }) {
       const items = JSON.parse(localStorage.getItem("items"));
       items.push(newItem);
       localStorage.setItem("items", JSON.stringify(items));
-      addItem(id, emoji, name, { items, setItems });
+      const newSidebarItem = document.createElement("div");
+      newSidebarItem.id = newItemElement.children[1].textContent;
+      newSidebarItem.draggable = true;
+      newSidebarItem.className = "item space-x-1.5 m-1 px-4 py-2 border-gray-200 shadow cursor-pointer transition inline-block font-medium border rounded-lg";
+      newSidebarItem.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text", e.target.id);
+        e.dataTransfer.setData("clone", true);
+      });
+      newSidebarItem.addEventListener("drop", (e) => {
+        handleItemDrop(e);
+      });
+      newItemElement.className = "item space-x-1.5 m-1 px-4 py-2 border-gray-200 shadow cursor-pointer transition inline-block font-medium border rounded-lg";
+      newSidebarItem.innerHTML = `<span>${emoji}</span><span>${name}</span>`;
+      document.querySelector(".sidebar > .items").appendChild(newSidebarItem);
     }
   }).catch((error) => {
-    console.log("오류가 발생했습니다 : ", error);
+    alert("오류가 발생했습니다. 다시 시도해주세요.");
+    console.log(error);
   });
 }

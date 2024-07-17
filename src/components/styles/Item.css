@@ -3,3 +3,12 @@
   cursor: drag;
   z-index: 999;
 }
+
+.dark-mode .items > * {
+  background-color: #2B2B2B;
+  color: white;
+}
+
+.dark-mode .items > *:hover {
+  background-color: #3B3B3B;
+}

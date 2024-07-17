@@ -5,7 +5,7 @@ export function reset({ setState, setDarkMode }) {
   if (ok) {
     let items = Array.from(JSON.parse(localStorage.getItem("items")));
     items = items.filter(function (item) {
-      return item.id < 4;
+      return item.id < 10;
     });
     localStorage.setItem("items", JSON.stringify(items));
     setState(JSON.parse(localStorage.getItem("items")));

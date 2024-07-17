@@ -1,5 +1,5 @@
 export function clear() {
-  const itemsInBody = document.querySelectorAll("body > .item");
+  const itemsInBody = document.querySelectorAll(".App > .item");
   itemsInBody.forEach((item) => {
     let size = 1;
     const interval = setInterval(() => {

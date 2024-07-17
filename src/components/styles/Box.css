@@ -1,5 +1,6 @@
 .box { 
   height: 100vh;
+  overflow: hidden;
 }
 
 .dark-mode {

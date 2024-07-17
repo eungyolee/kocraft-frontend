@@ -15,7 +15,13 @@ export default function Sidebar({ state, postObj, darkMode, toggleDarkMode }) {
         { id: 0, emoji: "💧", name: "물" },
         { id: 1, emoji: "🔥", name: "불" },
         { id: 2, emoji: "🌏", name: "땅" },
-        { id: 3, emoji: "💨", name: "바람"}
+        { id: 3, emoji: "💨", name: "바람"},
+        { id: 4, emoji: "👪", name: "사람" },
+        { id: 5, emoji: "🥵", name: "지구온난화"},
+        { id: 6, emoji: "🗑️", name: "쓰레기"},
+        { id: 7, emoji: "🍀", name: "친환경"},
+        { id: 8, emoji: "☕️", name: "자바" },
+        { id: 9, emoji: "🤴", name: "절대신" }
       ]));
     }
     setItems(JSON.parse(localStorage.getItem("items")));
@@ -25,9 +31,17 @@ export default function Sidebar({ state, postObj, darkMode, toggleDarkMode }) {
     setMute(!mute);
   }
 
+  function searchItem() {
+    const search = document.getElementById("search-items").value;
+    const items = JSON.parse(localStorage.getItem("items"));
+    const filteredItems = items.filter((item) => item.name.includes(search));
+    setItems(filteredItems);
+  }
+
   return (
     <>
-      <div className="sidebar w-1/4 shadow px-4 py-3 overflow-y-scroll">
+      <div className="sidebar w-1/4 shadow px-4 py-3">
+        <input type="text" id="search-items" onInput={searchItem} placeholder="🔎 단어 검색" />
         <div className="items">
           {items && items.map((item, index) => (
             <Item key={index} emoji={item.emoji} name={item.name} />

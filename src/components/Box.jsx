@@ -25,7 +25,7 @@ export default function Box({ state, postObj, darkMode }) {
       clone.style.zIndex = 1000;
       clone.style.opacity = 1;
       clone.id = Math.random().toString(36).substring(7);
-      document.body.appendChild(clone);
+      document.querySelector(".App").appendChild(clone);
 
       clone.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text", e.target.id);
@@ -59,6 +59,6 @@ export default function Box({ state, postObj, darkMode }) {
     }
   }
   return (
-    <canvas className={`box w-3/4 ${darkMode ? "dark-mode" : ""}`} onDrop={handleDrop} onDragOver={handleDragOver}></canvas>
+    <canvas className={`box w-3/4 ${darkMode ? "dark-mode" : ""}`} onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}></canvas>
   );
 }

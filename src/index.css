@@ -29,5 +29,5 @@ code {
 
 hr {
   border: 1px solid #ccc;
-  height: 100vh;
+  min-height: 100vh;
 }
