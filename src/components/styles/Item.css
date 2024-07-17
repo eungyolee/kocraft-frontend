@@ -1,14 +1,15 @@
-.items > * {
+.item {
   position: relative;
   cursor: drag;
   z-index: 999;
+  background-color: white;
 }
 
 .dark-mode .items > * {
-  background-color: #2B2B2B;
+  background-color: #000000;
   color: white;
 }
 
 .dark-mode .items > *:hover {
-  background-color: #3B3B3B;
+  background-color: #191919;
 }

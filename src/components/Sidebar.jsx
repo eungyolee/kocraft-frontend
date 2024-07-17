@@ -44,7 +44,7 @@ export default function Sidebar({ state, postObj, darkMode, toggleDarkMode }) {
         <input type="text" id="search-items" onInput={searchItem} placeholder="🔎 단어 검색" />
         <div className="items">
           {items && items.map((item, index) => (
-            <Item key={index} emoji={item.emoji} name={item.name} />
+            <Item key={index} emoji={item.emoji} name={item.name} darkMode={darkMode} />
           ))}
         </div>
       </div>

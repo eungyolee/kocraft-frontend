@@ -26,8 +26,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-hr {
-  border: 1px solid #ccc;
-  min-height: 100vh;
-}
