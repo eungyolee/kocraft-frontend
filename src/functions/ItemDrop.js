@@ -48,6 +48,7 @@ export function handleItemDrop(e) {
   tempItem.style.zIndex = 1000;
   tempItem.draggable = false;
   tempItem.innerText = "생성 중...";
+  tempItem.style.transform = `translate(-${e.clientX / window.innerWidth * 100}%, -${e.clientY / window.innerHeight * 100}%)`;
   document.querySelector(".App").appendChild(tempItem);
   console.log("item1 :", emoji1 + ' ' + name1);
   console.log("item2 :", emoji2 + ' ' + name2);
@@ -83,6 +84,7 @@ export function handleItemDrop(e) {
     newItemElement.style.position = "absolute";
     newItemElement.style.left = e.clientX / window.innerWidth * 100 + "%";
     newItemElement.style.top = e.clientY / window.innerHeight * 100 + "%";
+    newItemElement.style.transform = `translate(-${e.clientX / window.innerWidth * 100}%, -${e.clientY / window.innerHeight * 100}%)`;
     newItemElement.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("text", e.target.id);
       e.dataTransfer.setData("clone", false);

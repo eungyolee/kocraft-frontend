@@ -15,6 +15,7 @@ export default function Box({ state, postObj, darkMode }) {
       item.style.position = "absolute";
       item.style.left = e.clientX / window.innerWidth * 100 + "%";
       item.style.top = e.clientY / window.innerHeight * 100 + "%";
+      item.style.transform = `translate(-${e.clientX / window.innerWidth * 100}%, -${e.clientY / window.innerHeight * 100}%)`;
       item.style.zIndex = 1000;
     } else {
       const clone = item.cloneNode(true);
@@ -22,6 +23,7 @@ export default function Box({ state, postObj, darkMode }) {
       clone.style.position = "absolute";
       clone.style.left = e.clientX / window.innerWidth * 100 + "%";
       clone.style.top = e.clientY / window.innerHeight * 100 + "%";
+      clone.style.transform = `translate(-${e.clientX / window.innerWidth * 100}%, -${e.clientY / window.innerHeight * 100}%)`;
       clone.style.zIndex = 1000;
       clone.style.opacity = 1;
       clone.id = Math.random().toString(36).substring(7);
