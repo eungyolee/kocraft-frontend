@@ -34,6 +34,9 @@ export default function Sidebar({ state, postObj, darkMode, toggleDarkMode }) {
     const items = JSON.parse(localStorage.getItem("items"));
     const filteredItems = items.filter((item) => item.name.includes(search));
     setItems(filteredItems);
+    if (search === '') {
+      setItems(JSON.parse(localStorage.getItem("items")));
+    }
   }
 
   return (
